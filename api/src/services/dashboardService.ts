@@ -1,6 +1,6 @@
 // api/src/services/dashboardService.ts
 import * as dashboardModel from '../models/dashboardModel';
-import { Widget } from '../types/dashboardTypes';
+import { type Widget } from '@kubernetes-dashboard/dashboard-shared/types/widget';
 
 export const fetchDashboardWidgets = async (): Promise<Widget[]> => {
     try {

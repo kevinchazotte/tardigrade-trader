@@ -6,13 +6,8 @@
   "scripts": {
     "start": "node dist/app.js",
     "build": "tsc",
-    "dev": "ts-node src/app.ts",
-    "clean": "rm -rf dist"
+    "dev": "ts-node src/app.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@kubernetes-dashboard/dashboard-shared": "file:../dashboard-shared",
     "cors": "^2.8.5",

@@ -2,7 +2,7 @@
 
 This project provides the API and database layer.
 
-A PostgreSQL database is containerized and can be run via `docker compose db`, which uses the docker-compose.yml configuration.
+A PostgreSQL database is containerized and can be run via `docker compose up db`, which uses the docker-compose.yml configuration. It should be torn down using `docker compose down db` or `docker compose down -v db` to remove the volume.
 
 The API layer is, for now, separately containerized and can be built and deployed via `docker run --env-file .env -p 5000:5000 dashboard-api:0.0`, which uses the Dockerfile.
 
