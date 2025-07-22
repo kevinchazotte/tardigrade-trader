@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Starting local PostgreSQL database..."
-docker compose up -d db
+docker compose --file api/docker-compose.yml up -d db
 
 if [ $? -eq 0 ]; then
   echo "PostgreSQL database started successfully."

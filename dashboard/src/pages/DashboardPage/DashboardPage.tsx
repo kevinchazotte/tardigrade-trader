@@ -32,7 +32,7 @@ const mockDashboardData = {
 
 
 async function getWidgets(): Promise<Widget[]> {
-  const response = await fetch("http://127.0.0.1:5000/api/dashboard/widgets"); // development: point to wherever backend is hosted
+  const response = await fetch("http://127.0.0.1:49226/api/dashboard/widgets"); // development: point to wherever backend is hosted
   if (!response.ok) {
     throw new Error(`HTTP Error: ${response.status}`)
   }

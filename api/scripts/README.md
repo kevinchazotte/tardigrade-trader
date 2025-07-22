@@ -1,1 +1,1 @@
-These scripts should be run from the /api directory. They rely on the docker-compose.yml file and kubernetes/ directory.
+These scripts should be run from the project root directory. They rely on the api/ directory containing the docker-compose.yml file and kubernetes/ directory as well as the dashboard-shared/ directory containing package dependencies.

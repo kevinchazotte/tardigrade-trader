@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Stopping local PostgreSQL database..."
-docker compose down -v db
+docker compose --file api/docker-compose.yml down -v db
 
 if [ $? -eq 0 ]; then
   echo "PostgreSQL database stopped successfully."
