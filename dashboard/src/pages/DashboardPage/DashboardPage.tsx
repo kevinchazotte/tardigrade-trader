@@ -1,8 +1,11 @@
 // src/pages/DashboardPage/DashboardPage.tsx
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Grid, Typography } from '@mui/material';
 import { type Widget } from '@kubernetes-dashboard/dashboard-shared/types/widget';
 
+import { useAuth } from '../../context/AuthenticationContext';
+import { getWidgets } from '../../services/widgets';
+import Login from '../../components/login/login';
 import DashboardLayout from '../../components/layouts/DashboardLayouts/DashboardLayout';
 import MetricChart from '../../components/dashboard/MetricChart/MetricChart';
 import WidgetCard from '../../components/dashboard/WidgetCard/WidgetCard';
@@ -31,21 +34,26 @@ const mockDashboardData = {
 };
 
 
-async function getWidgets(): Promise<Widget[]> {
-  const response = await fetch("http://127.0.0.1:49226/api/dashboard/widgets"); // development: point to wherever backend is hosted
-  if (!response.ok) {
-    throw new Error(`HTTP Error: ${response.status}`)
-  }
-  return await response.json();
-}
-
-
 const DashboardPage: React.FC = () => {
   const data = mockDashboardData; // Using mock data still
-  const [widgets, setWidgets] = React.useState<Widget[]>([]);
-  React.useEffect(() => {
-    getWidgets().then(setWidgets);
-  }, []);
+  const authentication = useAuth();
+
+  const [widgets, setWidgets] = useState<Widget[]>([]);
+  useEffect(() => {
+    const fetchWidgets = async () => {
+      try {
+        const widgetData = getWidgets();
+        widgetData.then(setWidgets);
+      } catch (error) {
+        console.error('Failed to fetch widgets', error);
+        authentication.logout();
+      }
+    };
+
+    if (authentication.authToken) {
+      fetchWidgets();
+    }
+  }, [authentication]);
 
   return (
     <DashboardLayout>
@@ -53,6 +61,9 @@ const DashboardPage: React.FC = () => {
         <Typography variant="h4" component="h1">
           Dashboard Overview
         </Typography>
+      </Box>
+      <Box mb={4}>
+        <Login />
       </Box>
 
       <Grid container spacing={2}>

@@ -27,7 +27,7 @@ export const registerUser = async (request: Request, response: Response) => {
 
 export const loginUser = async (request: Request, response: Response) => {
     const { username, email, password } = request.body;
-    if (!email || !password) {
+    if (!username || !email || !password) {
         return response.status(400).json({ message: "Missing required user fields" });
     }
 
@@ -48,9 +48,9 @@ export const loginUser = async (request: Request, response: Response) => {
             }
         };
         const token = jwt.sign(payload, process.env.JWT_SECRET as string, {expiresIn: '1h'});
-        response.json({ token });
+        return response.json({ token });
     } catch (error) {
         console.error('Error logging in: ', error);
-        response.status(500).json({ message: "Server Error" });
+        return response.status(500).json({ message: "Server Error" });
     }
 };
